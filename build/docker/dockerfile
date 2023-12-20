@@ -1,0 +1,19 @@
+FROM node:20-alpine AS base
+WORKDIR /usr/app
+
+# # setup base for installation of dependency
+FROM base as deps
+WORKDIR /usr/app
+COPY . /usr/app
+RUN set -ex; \
+  yarn cache clean --force;
+
+FROM deps AS dev
+WORKDIR /usr/app
+RUN yarn
+RUN PKG_PLATFORM=alpine yarn bundle
+
+# Final image
+FROM alpine:3.16.2
+COPY --from=dev /usr/app/bin/assesment-relay-club /usr/local/bin/assesment-relay-club
+ENTRYPOINT ["assesment-relay-club"]

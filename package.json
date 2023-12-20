@@ -1,0 +1,71 @@
+{
+  "name": "assesment-relay-club",
+  "version": "0.0.1",
+  "bin": {
+    "app": "packages/backend/dist/main.js"
+  },
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "workspaces": [
+    "packages/backend",
+    "packages/client"
+  ],
+  "scripts": {
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start:backend": "cd packages/backend && yarn start:dev",
+    "start:frontend": "cd packages/frontend && yarn start",
+    "start:all": "concurrently \"yarn start:backend\" \"yarn start:frontend\"",
+    "docker-compose": "docker-compose -f build/docker/docker-compose.yml",
+    "test:backend": "cd packages/backend && yarn test",
+    "test:frontend": "cd packages/frontend && yarn test",
+    "test:frontend:nowatch": "cd packages/frontend && yarn test:nowatch",
+    "test": "yarn test:backend && yarn test:frontend:nowatch",
+    "build:backend": "cd packages/backend && yarn build",
+    "build:frontend": "cd packages/frontend && yarn build",
+    "copy:frontend": "copyfiles -u 3 packages/frontend/build/**/*.* packages/backend/dist/public",
+    "build": "yarn build:backend && yarn build:frontend && yarn copy:frontend",
+    "compile": "cross-env NODE_ENV=production PKG_CACHE_PATH=.pkg PKG_PLATFORM=${PKG_PLATFORM} ts-node build/compiler/pkg.ts",
+    "bundle": "yarn build && yarn compile",
+    "build:docker": "docker build -f build/docker/dockerfile -t relay-club ."
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "copyfiles": "^2.4.1",
+    "pkg": "^5.8.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "ts-node": "^10.9.2"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "moduleNameMapper": {
+      "^src/(.*)$": "<rootDir>/$1"
+    },
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  },
+  "pkg": {
+    "scripts": "packages/backend/dist/**/*.js",
+    "assets": [
+      "packages/backend/dist/public/**/*",
+      "node_modules/@nestjs/swagger/**/*",
+      "node_modules/swagger-ui-dist/**/*"
+    ],
+    "outputPath": "bin"
+  }
+}
