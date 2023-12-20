@@ -1,12 +1,15 @@
 # backend-task
 
-This project uses nestjs + react,
+This project uses nestjs + react built using monorepo
+architecture with yarn workspaces.
 
 ## Running Mysql Database
 You can run the mysql using docker compose, you need to install docker compose first
 ```shell script
 yarn docker-compose up -d
 ```
+No migration command needed, I setted up this application to 
+generete db schema and initial data when app start on the first time
 
 ## Running the application in dev mode
 
