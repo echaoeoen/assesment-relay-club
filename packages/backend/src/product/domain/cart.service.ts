@@ -65,7 +65,7 @@ export default class CartService {
               };
             }
           }
-          if (rule.ruleType === RuleType.FREE_BUNDLE_ITEM) {
+          if (rule.ruleType === RuleType.BUY_X_GET_Y_FREE) {
             if (cart.quantity >= rule.triggerQuantity) {
               if (cart.quantity <= rule.triggerQuantity + rule.discountValue) {
                 cart.quantity = rule.triggerQuantity + rule.discountValue;
@@ -76,7 +76,7 @@ export default class CartService {
               };
             }
           }
-          if (rule.ruleType === RuleType.BUY_X_GET_Y_FREE) {
+          if (rule.ruleType === RuleType.FREE_BUNDLE_ITEM) {
             if (cart.quantity >= rule.triggerQuantity) {
               checkoutItems.push({
                 discount: 0,

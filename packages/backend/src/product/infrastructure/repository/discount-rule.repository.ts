@@ -47,7 +47,7 @@ export default class DiscountRuleRepository
     await this.save([
       {
         id: 1,
-        ruleType: RuleType.FREE_BUNDLE_ITEM,
+        ruleType: RuleType.BUY_X_GET_Y_FREE,
         triggerQuantity: 2,
         triggerProduct: {
           id: 3,
@@ -67,7 +67,7 @@ export default class DiscountRuleRepository
       },
       {
         id: 3,
-        ruleType: RuleType.BUY_X_GET_Y_FREE,
+        ruleType: RuleType.FREE_BUNDLE_ITEM,
         discountProduct: {
           id: 4,
         },

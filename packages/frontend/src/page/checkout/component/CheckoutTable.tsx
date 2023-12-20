@@ -49,6 +49,20 @@ export default function CheckoutTable({
       valueGetter: (params) => `${params.row.quantity}`,
     },
     {
+      field: 'total',
+      headerName: 'Total',
+      width: 160,
+      valueGetter: (params) =>
+        `$${params.row.quantity * params.row.product.price}`,
+    },
+    {
+      field: 'discount',
+      headerName: 'Discount',
+      width: 160,
+      valueGetter: (params) =>
+        params.row.discount && `-$${params.row.discount}`,
+    },
+    {
       field: 'totalPrice',
       headerName: 'Total Price',
       width: 160,
