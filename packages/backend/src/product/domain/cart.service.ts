@@ -31,7 +31,6 @@ export default class CartService {
   }
   async delete(productId: number) {
     const user = RequestContext.getContext().user;
-    console.log({ user });
 
     await this.productRepository.getById(productId);
     await this.cartRepository.delete({
